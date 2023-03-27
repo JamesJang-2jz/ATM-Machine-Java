@@ -11,6 +11,11 @@ public class OptionMenu {
 	DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
 	HashMap<Integer, Account> data = new HashMap<Integer, Account>();
 
+	public OptionMenu(){
+
+	}
+
+
 	public void getLogin() throws IOException {
 		boolean end = false;
 		int customerNumber = 0;
@@ -47,7 +52,8 @@ public class OptionMenu {
 				System.out.println("\nSelect the account you want to access: ");
 				System.out.println(" Type 1 - Checking Account");
 				System.out.println(" Type 2 - Savings Account");
-				System.out.println(" Type 3 - Exit");
+				System.out.println(" Type 3 - Print Balance Statement");
+				System.out.println(" Type 4 - Exit");
 				System.out.print("\nChoice: ");
 
 				int selection = menuInput.nextInt();
@@ -60,6 +66,9 @@ public class OptionMenu {
 					getSaving(acc);
 					break;
 				case 3:
+					getStatementBalance(acc);
+					break;
+				case 4:
 					end = true;
 					break;
 				default:
@@ -70,6 +79,11 @@ public class OptionMenu {
 				menuInput.next();
 			}
 		}
+	}
+
+	private void getStatementBalance(Account acc) {
+		System.out.println("\nChecking Account Balance: " + moneyFormat.format(acc.getCheckingBalance()));
+		System.out.println("\nSavings Account Balance: " + moneyFormat.format(acc.getSavingBalance()));
 	}
 
 	public void getChecking(Account acc) {
@@ -96,7 +110,6 @@ public class OptionMenu {
 				case 3:
 					acc.getCheckingDepositInput();
 					break;
-
 				case 4:
 					acc.getTransferInput("Checking");
 					break;
@@ -130,7 +143,7 @@ public class OptionMenu {
 					System.out.println("\nSavings Account Balance: " + moneyFormat.format(acc.getSavingBalance()));
 					break;
 				case 2:
-					acc.getsavingWithdrawInput();
+					acc.getSavingWithdrawInput();
 					break;
 				case 3:
 					acc.getSavingDepositInput();
@@ -212,4 +225,9 @@ public class OptionMenu {
 		menuInput.close();
 		System.exit(0);
 	}
+
+
+
+
+
 }

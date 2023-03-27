@@ -104,7 +104,7 @@ public class Account {
 		}
 	}
 
-	public void getsavingWithdrawInput() {
+	public void getSavingWithdrawInput() {
 		boolean end = false;
 		while (!end) {
 			try {
@@ -232,4 +232,10 @@ public class Account {
 			}
 		}
 	}
+
+
+
+
+
+
 }
