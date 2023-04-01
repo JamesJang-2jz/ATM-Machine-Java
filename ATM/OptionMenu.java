@@ -46,7 +46,7 @@ public class OptionMenu {
 			throw new RuntimeException(e);
 		}
 	}
-	public void writeLogFile() {
+	public void writeLogFile(String input) {
 		BufferedWriter writer;
 		try{
 			writer = new BufferedWriter(new FileWriter("LogFile.txt"));
@@ -56,11 +56,15 @@ public class OptionMenu {
 				writer.newLine();
 			}
 			writer.close();
+
 		} catch (FileNotFoundException e) {
-			System.out.println("File \"AccountList.txt\" is not found.");
+			System.out.println("File \"LogFile.txt\" is not found.");
 		} catch (IOException e){
 			throw new RuntimeException(e);
 		}
+	}
+	public void printLogFile(Account acc){
+
 	}
 
 
@@ -101,7 +105,8 @@ public class OptionMenu {
 				System.out.println(" Type 1 - Checking Account");
 				System.out.println(" Type 2 - Savings Account");
 				System.out.println(" Type 3 - Print Balance Statement");
-				System.out.println(" Type 4 - Exit");
+				System.out.println(" Type 4 - Print Transaction History");
+				System.out.println(" Type 5 - Exit");
 				System.out.print("\nChoice: ");
 
 				int selection = menuInput.nextInt();
@@ -117,8 +122,13 @@ public class OptionMenu {
 					getStatementBalance(acc);
 					break;
 				case 4:
-					end = true;
+					printLogFile(acc);
 					break;
+					case 5:
+						end = true;
+						break;
+
+
 				default:
 					System.out.println("\nInvalid Choice.");
 				}

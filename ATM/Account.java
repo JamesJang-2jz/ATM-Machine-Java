@@ -8,6 +8,7 @@ public class Account {
 	private int pinNumber;
 	private double checkingBalance = 0;
 	private double savingBalance = 0;
+	OptionMenu options;
 
 	Scanner input = new Scanner(System.in);
 	DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
@@ -54,31 +55,37 @@ public class Account {
 	}
 
 	public double calcCheckingWithdraw(double amount) {
+		options.writeLogFile("Customer withdrew " + amount + " from Checking");
 		checkingBalance = (checkingBalance - amount);
 		return checkingBalance;
 	}
 
 	public double calcSavingWithdraw(double amount) {
+		options.writeLogFile("Customer withdrew " + amount + " from Saving");
 		savingBalance = (savingBalance - amount);
 		return savingBalance;
 	}
 
 	public double calcCheckingDeposit(double amount) {
+		options.writeLogFile("Customer deposit " + amount + " to Checking");
 		checkingBalance = (checkingBalance + amount);
 		return checkingBalance;
 	}
 
 	public double calcSavingDeposit(double amount) {
+		options.writeLogFile("Customer deposit " + amount + " to Saving");
 		savingBalance = (savingBalance + amount);
 		return savingBalance;
 	}
 
 	public void calcCheckTransfer(double amount) {
+		options.writeLogFile("Customer transferred " + amount + " to Saving");
 		checkingBalance = checkingBalance - amount;
 		savingBalance = savingBalance + amount;
 	}
 
 	public void calcSavingTransfer(double amount) {
+		options.writeLogFile("Customer transferred " + amount + " to Checking");
 		savingBalance = savingBalance - amount;
 		checkingBalance = checkingBalance + amount;
 	}
