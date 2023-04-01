@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -12,7 +12,55 @@ public class OptionMenu {
 	HashMap<Integer, Account> data = new HashMap<Integer, Account>();
 
 	public OptionMenu(){
+		readAccountFile();
+	}
 
+	public void readAccountFile() {
+		BufferedReader reader;
+		try{
+			reader = new BufferedReader(new FileReader("AccountList.txt"));
+			String accountInfo;
+			while((accountInfo = reader.readLine()) != null){
+				String[] line = accountInfo.split(",");
+				this.data.put(Integer.valueOf(line[0]), new Account(Integer.parseInt(line[0]), Integer.parseInt(line[1]), Double.parseDouble(line[2]), Double.parseDouble(line[3])));
+			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("File \"AccountList.txt\" is not found.");
+		} catch (IOException e){
+			throw new RuntimeException(e);
+		}
+	}
+	public void writeAccountFile() {
+		BufferedWriter writer;
+		try{
+			writer = new BufferedWriter(new FileWriter("AccountList.txt"));
+			for (Account acc : data.values()){
+				writer.write(acc.getCustomerNumber() + "," + acc.getPinNumber() + "," + acc.getCheckingBalance() + "," + acc.getSavingBalance());
+				writer.newLine();
+			}
+			writer.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("File \"AccountList.txt\" is not found.");
+		} catch (IOException e){
+			throw new RuntimeException(e);
+		}
+	}
+	public void writeLogFile() {
+		BufferedWriter writer;
+		try{
+			writer = new BufferedWriter(new FileWriter("LogFile.txt"));
+			String accountInfo;
+			for (Account acc : data.values()){
+				writer.write(acc.getCustomerNumber() + "," + acc.getPinNumber() + "," + acc.getCheckingBalance() + "," + acc.getSavingBalance());
+				writer.newLine();
+			}
+			writer.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("File \"AccountList.txt\" is not found.");
+		} catch (IOException e){
+			throw new RuntimeException(e);
+		}
 	}
 
 
@@ -223,11 +271,8 @@ public class OptionMenu {
 		}
 		System.out.println("\nThank You for using this ATM.\n");
 		menuInput.close();
+		writeAccountFile();
 		System.exit(0);
 	}
-
-
-
-
 
 }
