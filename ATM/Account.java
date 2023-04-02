@@ -8,7 +8,6 @@ public class Account {
 	private int pinNumber;
 	private double checkingBalance = 0;
 	private double savingBalance = 0;
-	OptionMenu options;
 
 	Scanner input = new Scanner(System.in);
 	DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
@@ -55,37 +54,37 @@ public class Account {
 	}
 
 	public double calcCheckingWithdraw(double amount) {
-		options.writeLogFile("Customer withdrew " + amount + " from Checking");
+		OptionMenu.writeLogFile("Account " + customerNumber + " withdrew " + amount + " from Checking");
 		checkingBalance = (checkingBalance - amount);
 		return checkingBalance;
 	}
 
 	public double calcSavingWithdraw(double amount) {
-		options.writeLogFile("Customer withdrew " + amount + " from Saving");
+		OptionMenu.writeLogFile("Account " + customerNumber + " withdrew " + amount + " from Savings");
 		savingBalance = (savingBalance - amount);
 		return savingBalance;
 	}
 
 	public double calcCheckingDeposit(double amount) {
-		options.writeLogFile("Customer deposit " + amount + " to Checking");
+		OptionMenu.writeLogFile("Account " + customerNumber + " deposited " + amount + " to Checking");
 		checkingBalance = (checkingBalance + amount);
 		return checkingBalance;
 	}
 
 	public double calcSavingDeposit(double amount) {
-		options.writeLogFile("Customer deposit " + amount + " to Saving");
+		OptionMenu.writeLogFile("Account " + customerNumber + " deposited " + amount + " to Savings");
 		savingBalance = (savingBalance + amount);
 		return savingBalance;
 	}
 
 	public void calcCheckTransfer(double amount) {
-		options.writeLogFile("Customer transferred " + amount + " to Saving");
+		OptionMenu.writeLogFile("Account " + customerNumber + " transferred " + amount + " to Savings");
 		checkingBalance = checkingBalance - amount;
 		savingBalance = savingBalance + amount;
 	}
 
 	public void calcSavingTransfer(double amount) {
-		options.writeLogFile("Customer transferred " + amount + " to Checking");
+		OptionMenu.writeLogFile("Account " + customerNumber + " transferred " + amount + " to Checking");
 		savingBalance = savingBalance - amount;
 		checkingBalance = checkingBalance + amount;
 	}

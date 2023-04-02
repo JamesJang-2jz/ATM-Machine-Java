@@ -1,15 +1,11 @@
 import java.io.*;
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class OptionMenu {
 	Scanner menuInput = new Scanner(System.in);
 	DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
-	HashMap<Integer, Account> data = new HashMap<Integer, Account>();
+	static HashMap<Integer, Account> data = new HashMap<Integer, Account>();
 
 	public OptionMenu(){
 		readAccountFile();
@@ -46,28 +42,38 @@ public class OptionMenu {
 			throw new RuntimeException(e);
 		}
 	}
-	public void writeLogFile(String input) {
+	public static void writeLogFile(String input) {
 		BufferedWriter writer;
 		try{
 			writer = new BufferedWriter(new FileWriter("LogFile.txt"));
-			String accountInfo;
-			for (Account acc : data.values()){
-				writer.write(acc.getCustomerNumber() + "," + acc.getPinNumber() + "," + acc.getCheckingBalance() + "," + acc.getSavingBalance());
+				writer.write(input);
 				writer.newLine();
-			}
 			writer.close();
-
 		} catch (FileNotFoundException e) {
 			System.out.println("File \"LogFile.txt\" is not found.");
 		} catch (IOException e){
 			throw new RuntimeException(e);
 		}
 	}
-	public void printLogFile(Account acc){
-
+	public void printLogFile(Account acc) {
+		BufferedReader reader;
+		try{
+			reader = new BufferedReader(new FileReader("Logfile.txt"));
+			String accountInfo;
+			while((accountInfo = reader.readLine()) != null) {
+				String[] line = accountInfo.split(" ");
+//				if (Objects.equals(line[1],acc.getCustomerNumber())){
+					System.out.println(accountInfo);
+//				}
+//				this.data.put(Integer.valueOf(line[0]), new Account(Integer.parseInt(line[0]))};
+			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("File \"AccountList.txt\" is not found.");
+		} catch (IOException e){
+			throw new RuntimeException(e);
+		}
 	}
-
-
 	public void getLogin() throws IOException {
 		boolean end = false;
 		int customerNumber = 0;
