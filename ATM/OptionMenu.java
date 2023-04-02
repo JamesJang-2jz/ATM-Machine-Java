@@ -7,6 +7,10 @@ public class OptionMenu {
 	DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
 	static HashMap<Integer, Account> data = new HashMap<Integer, Account>();
 
+	static BufferedWriter logWriter;
+
+
+
 	public OptionMenu(){
 		readAccountFile();
 	}
@@ -43,12 +47,11 @@ public class OptionMenu {
 		}
 	}
 	public static void writeLogFile(String input) {
-		BufferedWriter writer;
 		try{
-			writer = new BufferedWriter(new FileWriter("LogFile.txt"));
-				writer.write(input);
-				writer.newLine();
-			writer.close();
+			logWriter = new BufferedWriter(new FileWriter("LogFile.txt"));
+				logWriter.write(input);
+				logWriter.newLine();
+			logWriter.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("File \"LogFile.txt\" is not found.");
 		} catch (IOException e){
